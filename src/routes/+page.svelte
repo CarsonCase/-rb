@@ -167,7 +167,7 @@ function handleSliderChange(index: number, event: Event) {
 </script>
 
 
-<div class="grid grid-cols-3 grid-rows-4 h-screen text-white">
+<div class="grid grid-cols-3 grid-rows-4 h-screen text-white font-impact">
     <div class="bg-blue-500 row-span-4">
         <div class="grid justify-items-center">
             <h1 class="p-10 text-6xl">Ürb Finance</h1>

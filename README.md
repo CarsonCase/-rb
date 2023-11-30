@@ -1,38 +1,12 @@
-# create-svelte
+# Ürb Finance
+![A screenshot of the project](image.png)
+## Description
+A fun twist on compound interest calculators like https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator
+Instead of entering an interest rate, the mean returns of assets are used and can be weighted in your portfolio. The sd can also be used to generate random
+values within a reasonable but random range for those assets to visualize a portfolio's risk and potential performance.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Instructions
+First run the main.py file with python to host a flask server to route yfinance data. This is much faster than requesting on the frontend and does not require API keys.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Next run `npm run dev` to see the svelte project!
+Refer to Svelte documentation for instructions on building a production application

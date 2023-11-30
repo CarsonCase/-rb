@@ -24,9 +24,14 @@
 	"type": "module",
 	"dependencies": {
 		"@sveltejs/pancake": "^0.0.18",
+		"axios": "^1.6.2",
 		"chart.js": "^4.4.0",
 		"i": "^0.3.7",
 		"layercake": "^8.0.2",
-		"npm": "^10.2.4"
+		"npm": "^10.2.4",
+		"request": "^2.88.2",
+		"request-promise": "^4.2.6",
+		"yahoo-finance": "^0.3.8",
+		"yahoo-finance2": "^2.9.0"
 	}
 }

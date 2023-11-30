@@ -1,7 +1,7 @@
 <script lang="ts">
 import {onMount} from "svelte"
 
-import Chart from 'chart.js/auto'
+import Chart, { type ChartData } from 'chart.js/auto'
 import { browser } from '$app/environment';
 import {calculateMonthlyStatistics} from "../lib/stockData";
 import type {MontlyData} from "../lib/stockData";
@@ -15,6 +15,7 @@ let isRandom: boolean = false;
 let total: number;
 let assets: Asset[] = [];
 let assetsLoaded: boolean = false;
+let benchmarkAPY: number = 0.07;
 
 type Asset = {
     symbol: string,
@@ -24,14 +25,29 @@ type Asset = {
 }
 
 function getData(){
-    let labels: number[] = [];
-    let data: number[] = [];
+    let data: ChartData = {
+        labels: [],
+        datasets: [
+            {
+                label: "My Portfolio",
+                data: [],
+                borderColor: "#4ade80",
+                backgroundColor: "#4ade80",
+            },
+            {
+                label: "Benchmark",
+                data: [],
+                borderColor: "#EAB464",
+                backgroundColor: "#EAB464",
+            }
+        ]
+    };
 
-    data.push(startingCash);
+    data.datasets[0].data.push(startingCash);
     for (var i = 1; i < numberOfMonths; i++){
-        labels.push(i);
-        let lastVal = data[i-1];
-        let thisMonthsCash = lastVal + cashPerMonth;
+        (data.labels as number[]).push(i);
+        let lastVal = data.datasets[0].data[i-1];
+        let thisMonthsCash = lastVal as number + cashPerMonth;
         assets.forEach(asset => {
             let priceChange=0;
             if(isRandom){
@@ -39,12 +55,20 @@ function getData(){
             }else{
                 priceChange = asset.data.mean;
             }
-            thisMonthsCash += (lastVal * (asset.portfolioWeight/100) * priceChange)
+            thisMonthsCash += (lastVal as number * (asset.portfolioWeight/100) * priceChange)
         });
-        data.push(thisMonthsCash);
+        data.datasets[0].data.push(thisMonthsCash);
     }
-    labels.push(numberOfMonths);
-    return({labels: labels, data: data, finalValue: data[data.length-1]});
+    let _total = data.datasets[0].data[data.datasets[0].data.length-1] as number
+
+    data.datasets[1].data.push(startingCash);
+    for(let i = 1; i < numberOfMonths; i++){
+        let lastVal = data.datasets[1].data[i-1] as number;
+        data.datasets[1].data.push(lastVal + (lastVal * benchmarkAPY/12) + cashPerMonth);
+    }
+
+    (data.labels as number[]).push(numberOfMonths);
+    return {data, _total};
 }
 
 function loadChart(){
@@ -55,24 +79,14 @@ function loadChart(){
         chartObj.destroy();
     }
     if(browser && assetsLoaded){
-        let {labels, data, finalValue} = getData();
-        total = finalValue;
-        
+        let {data, _total} = getData(); 
+        total = _total
+       
         chartObj = new Chart(
             document.getElementById('myChart') as any,
-            {
+        {
         type: "line",
-        data: {
-            labels: labels,
-            datasets: [
-            {
-                label: "Portfolio Value",
-                backgroundColor: "#4ade80",
-                borderColor: "#4ade80",
-                data: data
-            }
-            ]
-        },
+        data: data,
         options: {
             scales:{
                 x: {
@@ -93,7 +107,7 @@ function loadChart(){
         });
     }
 }
-$: startingCash, cashPerMonth, numberOfMonths, assets, isRandom, loadChart()
+$: startingCash, cashPerMonth, numberOfMonths, assets, isRandom, benchmarkAPY, loadChart()
 
 onMount(async()=>{
     
@@ -186,6 +200,11 @@ function handleSliderChange(index: number, event: Event) {
             <div class="grid">
                 <label for="months">Number of Months</label>
                 <input class="rounded-md border-0" bind:value={numberOfMonths} type="number" name="months">
+            </div>
+
+            <div class="grid">
+                <label for="benchmark">Benchmark APY</label>
+                <input class="rounded-md border-0" bind:value={benchmarkAPY} type="number" name="benchmark" min=0 max=1 step=.05>
             </div>
 
             <div class="">

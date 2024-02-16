@@ -181,10 +181,13 @@ function handleSliderChange(index: number, event: Event) {
 </script>
 
 
-<div class="grid grid-cols-3 grid-rows-4 h-screen text-white font-impact">
-    <div class="bg-blue-500 row-span-4">
-        <div class="grid justify-items-center">
+<div class="grid grid-cols-3 grid-rows-4 text-white font-impact">
+    <div class="bg-blue-500 row-span-4 col-span-3 lg:col-span-1 ">
+        <div class="grid justify-items-center text-center">
             <h1 class="p-10 text-6xl">Ürb Finance</h1>
+            <p class="">Compound interest visualized with real historic data</p>
+            <a class="text-blue-200" href="https://github.com/CarsonCase">Check out my other projects!</a>
+            <p class="lg:hidden">Scroll down to see the chart!</p>
         </div>
         <div class="p-10 grid gap-4 text-black">
             <div class="grid">
@@ -242,7 +245,7 @@ function handleSliderChange(index: number, event: Event) {
                     </div>
         </div>
     </div>
-    <div class="row-span-4 col-span-2 flex items-center bg-stone-950">
+    <div class="row-span-4 col-span-3 lg:col-span-2 flex items-center bg-stone-950">
         <canvas class="w-max h-1/2  text-white" id="myChart">
         </canvas>
     </div>

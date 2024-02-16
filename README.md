@@ -1,3 +1,7 @@
+# NOW LIVE
+https://urb-gold.vercel.app/
+featuring the stockData service as a Google Cloud Run Function
+
 # Ürb Finance
 ![A screenshot of the project](image.png)
 ## Description

@@ -11,7 +11,7 @@ export interface MontlyData {
 }
 
 async function fetchMonthlyPriceData(symbol: string): Promise<MonthlyPriceData[] | null> {
-  const respoonse = await axios.get("http://127.0.0.1:1234/stock-data?ticker="+symbol)
+  const respoonse = await axios.get("https://get-stock-data-sx3w35g22a-wn.a.run.app/?ticker="+symbol)
   return respoonse.data;
 }
 

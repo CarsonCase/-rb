@@ -235,13 +235,15 @@ function handleSliderChange(index: number, event: Event) {
                 {/if}
                 <div class="flex text-4xl">
                     {#if total >= 0}
-                    <h1 class="text-4x">Total Value: </h1>
-                    <h1 class="text-green-500">${roundCash(total)}</h1>
-                {:else}
-                
-                    <h1 class=" ">Total Value: </h1>
-                    <h1 class="text-red-700">${roundCash(total)}</h1>
-                {/if}
+                        <h1 class="text-4x">Total Value: </h1>
+                        <h1 class="text-green-500">${roundCash(total)}</h1>
+                        {:else if total == null}
+                        <h1 class="text-yellow-500">Loading...</h1>
+                        {:else}
+                        
+                            <h1 class=" ">Total Value: </h1>
+                            <h1 class="text-red-700">${roundCash(total)}</h1>
+                            {/if}
                     </div>
         </div>
     </div>
